@@ -1,0 +1,30 @@
+interesting() public {
+ write "今日の日付: "_$ZDATE($HOROLOG,3)
+ write !,"インストールのバージョン: "_$ZVERSION
+ write !,"ユーザー名: "_$USERNAME
+ write !,"セキュリティロール: "_$ROLES
+ }
+ 
+getnumbername(number) {
+ set name=$CASE(number,1:"一",2:"二",3:"三",4:"四",5:"五",6:"六",7:"七",8:"八",9:"九",10:"十",:"その他")
+ quit name
+ }
+ 
+input() public {
+ read "1から10までの数字を入力してください: ",input
+ set name=$$getnumbername(input)
+ write !, "この数字の名前は: "_name
+ }
+ 
+random() public {
+ set rand=$RANDOM(10)+1 // randは1から10の範囲の整数
+ write "乱数は: "_rand
+ set name=$$getnumbername(rand)
+ write !, "この数字の名前: "_name
+}
+
+square(input) public {
+ set answer = input * input
+ set input = input + 10
+ quit answer
+}

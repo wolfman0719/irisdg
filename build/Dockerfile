@@ -1,13 +1,17 @@
 FROM store/intersystems/iris-community:2019.4.0.379.0
 
-ARG COMMIT_ID="pgdemo"
+ARG COMMIT_ID="devguide"
 
 USER irisowner
 
 ENV ISC_TEMP_DIR=/intersystems/iris/
-COPY PM $ISC_TEMP_DIR/PM
-COPY solution $ISC_TEMP_DIR/solution
-COPY solution/*.xml $ISC_PACKAGE_INSTALLDIR/mgr/user/
+COPY Sales $ISC_TEMP_DIR/Sales
+COPY Shop $ISC_TEMP_DIR/Shop
+COPY Sample $ISC_TEMP_DIR/Sample
+COPY Test $ISC_TEMP_DIR/Test
+COPY OrderProc.mac $ISC_TEMP_DIR/
+COPY shop-data.xml $ISC_TEMP_DIR/
+COPY csp/*.* $ISC_PACKAGE_INSTALLDIR/csp/user/
 
 RUN  iris start $ISC_PACKAGE_INSTANCENAME \ 
 && printf 'Do ##class(Config.NLS.Locales).Install("jpuw") \
@@ -16,34 +20,21 @@ RUN  iris start $ISC_PACKAGE_INSTANCENAME \
  set sec.DeepSeeEnabled = 1 \
  set sec.iKnowEnabled = 1 \
  set status = sec.%%Save() \
- set sec = ##class("Security.Applications").%%New() \
- set sec.Name = "/pm" \
- set sec.NameSpace = "USER" \
- set sec.DispatchClass ="PM.Broker" \
- set sec.AutheEnabled = 32 \
- set status = sec.%%Save() \
  set user = ##class(Security.Users).%%OpenId("_system") \
  set user.PasswordExternal = "demosystem" \
  set status = user.%%Save() \
  h\n' | iris session $ISC_PACKAGE_INSTANCENAME -U %SYS \ 
-&& printf 'Do $system.OBJ.ImportDir("'$ISC_TEMP_DIR'/PM",,"ck",,1) \
- Set ^%%SYS("sql","sys","week ISO8601") = 1 \
- do ##class(PM.SetUp).Import("/intersystems/iris/solution/ken_all.csv") \
- do ##class(PM.SetUp).PopulateBasics() \
- do ##class(PM.SetUp).PopulateRelations() \
- do ##class(PM.SetUp).PopulateTransactions(1000) \
- do ##class(%%DeepSee.Utils).%%BuildCube("ProjectCube") \
- set ^UnitTestRoot = "/intersystems/iris/UnitTests" \
+&& printf 'Do $system.OBJ.ImportDir("'$ISC_TEMP_DIR'/",,"ck",,1) \
+ set ^Yubin.ZenkokuD = 123645 \
+ do ##class(Sample.Supplier).Populate(100) \
+ do ##class(Sample.Car).Populate(100) \
+ do ##class(Sample.Person).Populate(100) \
  h\n' | iris session $ISC_PACKAGE_INSTANCENAME -U USER \
  && iris stop $ISC_PACKAGE_INSTANCENAME quietly
 
 USER root
 
 RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} $ISC_TEMP_DIR/
-RUN chown ${ISC_PACKAGE_MGRUSER}:${ISC_PACKAGE_IRISGROUP} $ISC_TEMP_DIR/solution
-RUN mkdir $ISC_TEMP_DIR/UnitTests
-RUN mkdir $ISC_TEMP_DIR/UnitTests/JDate
-RUN cp $ISC_TEMP_DIR/PM/jdate.xml $ISC_TEMP_DIR/UnitTests/JDate
 
 USER irisowner
 

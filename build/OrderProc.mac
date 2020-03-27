@@ -1,0 +1,156 @@
+ROUTINE OrderProc
+placeOrder(customerId) PUBLIC {
+ 
+	if customerId="" quit
+ 
+	if '$data(^customer(customerId)) write "顧客IDが登録されていません" quit
+ 
+	set customerInfo = ^customer(customerId)
+	
+	set customerName = $list(customerInfo,1)
+	
+	write customerName_"様、いつもご利用ありがとうございます",!!
+	
+	set pid = ""
+ 
+	write "商品ID",?20,	"商品名",?40,"単価",!
+	write "----------------------------------------------------",!
+ 
+	for {
+		set pid = $order(^product(pid))
+		if pid = "" quit
+		set productInfo = ^product(pid)
+		set productName = $list(productInfo,1)
+		set unitPrice = $list(productInfo,2)
+		write pid,?20,productName,?40,unitPrice,! 
+	}
+	
+	set itemNo = 0
+	
+	write !
+	
+	for {
+	  read "注文したい商品IDを入力してください　", pid,!
+	  if pid="" quit
+	  if '$data(^product(pid)) write "商品が存在しません",! continue
+	  set productInfo = ^product(pid)
+	  set unitPrice = $list(productInfo,2)
+	  set discount = $list(customerInfo,4)
+	  read "数量を入力してください　", amount,!
+	  if amount'?.N write "正しい数値を入力してください",! continue
+	  set itemNo = itemNo + 1
+	  set items(itemNo) = $listbuild(pid,unitPrice,discount,amount) 
+	}
+	
+	if itemNo = 0 quit
+	
+	tstart
+	
+	try {
+	
+	set orderId = $increment(^order)
+	set ^orderI("customerIndex",customerId,orderId) = ""
+	set ^order(orderId) = $listbuild(customerId,$piece($horolog,",",1))
+	for i = 1:1:itemNo {
+		set ^order(orderId,i) = items(i)
+		set pid = $list(items(i),1)
+		set ^orderI("productIndex",pid,orderId) = ""
+	}
+	
+	}
+	catch error {
+		trollback
+	}
+ 
+	tcommit
+	
+}
+ 
+orderByCustomer(customerId) public {
+ 
+	if customerId="" quit
+	set customerName = $list(^customer(customerId),1)
+	write customerName_"様のご注文履歴は、次のようになっています",!!
+	
+	write "注文ID",?20,"注文日",!
+	write "-----------------------------------------------",!
+	set oid = ""
+	for {
+		set oid = $order(^orderI("customerIndex",customerId,oid))
+		if oid = "" quit
+		set orderDate = $list(^order(oid),2)
+		write oid,?20,$zdate(orderDate,3),!
+	}
+	
+	write !
+	
+	read "内容を表示したい注文番号を入力してください",oid,!!
+	if oid = "" quit
+	if '$data(^order(oid)) write "注文が存在しません",! quit
+	
+	write "ご注文内容は、以下のとおりです",!!
+	
+	set orderInfo = ^order(oid)
+	set orderDate = $list(orderInfo,2)
+	
+	write "お客様名",?20,"注文日",!
+	write customerName,?20,orderDate,!
+	write "明細番号",?10,"商品ID",?20,"商品名",?40,"単価",?50,"割引率",?60,"数量",?70,"小計",!
+	write "---------------------------------------------------------------------------",!
+ 
+	set lid = ""
+ 
+	for {
+		set lid = $order(^order(oid,lid))
+		if lid = "" quit
+		set item = ^order(oid,lid)
+		set pid = $list(item,1)
+		set productName = $list($get(^product(pid)),1)
+		set unitPrice = $list(item,2)
+		set discount = $list(item,3)
+		set amount = $list(item,4)
+		set subTotal = $normalize((unitPrice * amount * discount / 100),0)
+		write lid,?10,pid,?20,productName,?40,unitPrice,?50,discount,?60,amount,?70,subTotal,!
+	}
+ 
+}
+ 
+totalByProduct(productId) public {
+	if productId = "" quit
+	
+	set oid = "",total = 0
+ 
+	for {
+		set oid = $order(^orderI("productIndex",productId,oid))
+		if oid = "" quit
+		set subTotal = 0
+		set itemNo = ""
+		
+		for {
+			set itemNo = $order(^order(oid,itemNo))
+			if itemNo = "" quit
+			set itemInfo = ^order(oid,itemNo)
+			set pid = $list(itemInfo,1)
+			if pid = productId {
+			   set unitPrice = $list(itemInfo,2)
+			   set discount = $list(itemInfo,3)
+			   set amount = $list(itemInfo,4)
+			   set subTotal = subTotal + $normalize((unitPrice * discount / 100 * amount),0)
+			}
+		}
+		
+		set total = total + subTotal
+	}
+	
+	write "この商品の売り上げ累計は、",total,"円です",!
+}
+ 
+populate() public {
+	set ^product(1) = $listbuild("シャンプー",500)
+	set ^product(2) = $listbuild("リンス",600)
+	set ^product(3) = $listbuild("ボディーソープ",400)
+	set ^product(4) = $listbuild("スクラブウォッシュ",800)
+	set ^product(5) = $listbuild("ヘアジェル",1200)
+	set ^customer(1) = $listbuild("太田　明","東京都新宿区西新宿6-10-11","03-5321-6201",90)	
+	set ^customer(2) = $listbuild("前島　健作","東京都新宿区西新宿8-10-11","03-5322-6209",90)	
+}

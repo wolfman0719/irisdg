@@ -1,0 +1,21 @@
+<html>
+<head>
+
+<!-- Put your page Title here -->
+<title>	Cache Server Page </title>
+
+</head>
+
+<body>
+
+<b>こんにちは、みなさん!</b>
+<script language="Cache" runat="server">
+// このコードは、サーバ上で実行
+Write "<ul>",!
+For i = 1:1:10 {
+Write "<li> これは、",i,"行目です。",!
+}
+Write "</ul>",!
+</script>
+</body>
+</html>
