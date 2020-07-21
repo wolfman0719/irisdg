@@ -1,4 +1,4 @@
-FROM store/intersystems/iris-community:2019.4.0.379.0
+FROM store/intersystems/iris-community:2020.2.0.211.0
 
 ARG COMMIT_ID="devguide"
 
