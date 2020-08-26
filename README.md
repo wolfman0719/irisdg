@@ -37,7 +37,9 @@ Webターミナル起動方法
 
 2. 注文作成　
 
-```USER>d ##class(Sales.Operation).placeOrder(3)
+```
+USER>d ##class(Sales.Operation).placeOrder(3)
+
 北村　ゆきえ様、いつもご利用ありがとうございます
  
 商品ID              商品名              単価
@@ -61,7 +63,8 @@ USER>
 3.　顧客別注文状況表示
 
 
-```USER>d ##class(Sales.Operation).orderByCustomer(3)
+```
+USER>d ##class(Sales.Operation).orderByCustomer(3)
  
 北村　ゆきえ様のご注文履歴は、以下の様になっています
  
@@ -85,7 +88,8 @@ USER>
 
 4.　商品別売り上げ
 
-```USER>d ##class(Sales.Operation).totalByProduct(1)
+```
+USER>d ##class(Sales.Operation).totalByProduct(1)
 この商品の売り上げ累計は、3360円です
 ```
 
