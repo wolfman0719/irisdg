@@ -16,11 +16,11 @@ InterSystems IRIS Data Platform ディベロッパーガイド世代管理用Doc
 
 管理ポータル起動方法
 
-[管理ポータル](localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
+[管理ポータル](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
 
 Webターミナル起動方法
 
-[Webターミナル](localhost:52780/terminal/)
+[Webターミナル](http://localhost:52780/terminal/)
 
 
 - システムログイン　　_system
