@@ -16,28 +16,28 @@ InterSystems IRIS Data Platform ディベロッパーガイド世代管理用Doc
 
 管理ポータル起動方法
 
-localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem
+[管理ポータル](localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
 
 Webターミナル起動方法
 
-localhost:52780/terminal/
+[Webターミナル](localhost:52780/terminal/)
 
 
-システムログイン　　_system
-パスワード　	demosystem
+- システムログイン　　_system
+- パスワード　	demosystem
 
 
 サンプル実行方法
 
 1. データ生成
 
-Cacheターミナルでログイン
+ターミナルでログイン
 
-USER>do ##class(Sales.Operation).populate(5)
+`USER>do ##class(Sales.Operation).populate(5)`
 
 2.　注文作成　
 
-USER>d ##class(Sales.Operation).placeOrder(3)
+```USER>d ##class(Sales.Operation).placeOrder(3)
 北村　ゆきえ様、いつもご利用ありがとうございます
  
 商品ID              商品名              単価
@@ -54,11 +54,11 @@ USER>d ##class(Sales.Operation).placeOrder(3)
 数量を入力して下さい　2
 注文したい商品IDを入力して下さい　
  
-USER>
+USER>```
 
 3.　顧客別注文状況表示
 
-USER>d ##class(Sales.Operation).orderByCustomer(3)
+```USER>d ##class(Sales.Operation).orderByCustomer(3)
  
 北村　ゆきえ様のご注文履歴は、以下の様になっています
  
@@ -76,9 +76,9 @@ USER>d ##class(Sales.Operation).orderByCustomer(3)
 明細番号  商品ID    商品名              単価      割引率    数量      小計
 -------------------------------------------------------------------------------
        1       4    ボディーソープ       4,600      90 %       2         8,280
-       2       2    スクラブウォッシュ   9,200      90 %       3        24,840
+       2       2    スクラブウォッシュ   9,200      90 %       3        24,840```
 
 4.　商品別売り上げ
 
-USER>d ##class(Sales.Operation).totalByProduct(1)
-この商品の売り上げ累計は、3360円です
+```USER>d ##class(Sales.Operation).totalByProduct(1)
+この商品の売り上げ累計は、3360円です```
