@@ -1,45 +1,43 @@
-PG
-======
+# PG
 
-IRIS Developer Guide
-
-InterSystems IRIS Data Platform ディベロッパーガイド世代管理用Docker Build Githubサイト
+InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 
 
-ビルドプロセス
+## ビルドプロセス
 
-#Build
-# ./build.sh
-#Run
-# ./run.sh
-
-
-管理ポータル起動方法
-
-[管理ポータル](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
-
-Webターミナル起動方法
-
-[Webターミナル](http://localhost:52780/terminal/)
+### Build
+* `docker-compose build`
+### Run
+* `docker-compose up -d`
 
 
-- システムログイン　　_system
-- パスワード　	demosystem
+## 管理ポータル起動方法
+
+[localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
+
+## Webターミナル起動方法
+
+[localhost:52780/terminal/](http://localhost:52780/terminal/)
+
+## クレデンシャル情報
+
+|項目           |値         |
+|--------------|-----------|
+|システムログイン |_system    |
+|パスワード　	    |demosystem |
 
 
-サンプル実行方法
+## サンプル実行方法
 
 1. データ生成
 
-ターミナルでログイン
+Cacheターミナルでログイン
 
 `USER>do ##class(Sales.Operation).populate(5)`
 
-2. 注文作成　
+2.　注文作成　
 
-```
-USER>d ##class(Sales.Operation).placeOrder(3)
-
+```USER>d ##class(Sales.Operation).placeOrder(3)
 北村　ゆきえ様、いつもご利用ありがとうございます
  
 商品ID              商品名              単価
@@ -59,12 +57,9 @@ USER>d ##class(Sales.Operation).placeOrder(3)
 USER>
 ```
 
-
 3.　顧客別注文状況表示
 
-
-```
-USER>d ##class(Sales.Operation).orderByCustomer(3)
+```USER>d ##class(Sales.Operation).orderByCustomer(3)
  
 北村　ゆきえ様のご注文履歴は、以下の様になっています
  
@@ -84,12 +79,9 @@ USER>d ##class(Sales.Operation).orderByCustomer(3)
        1       4    ボディーソープ       4,600      90 %       2         8,280
        2       2    スクラブウォッシュ   9,200      90 %       3        24,840
 ```
-       
 
 4.　商品別売り上げ
 
-```
-USER>d ##class(Sales.Operation).totalByProduct(1)
+```USER>d ##class(Sales.Operation).totalByProduct(1)
 この商品の売り上げ累計は、3360円です
 ```
-

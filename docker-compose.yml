@@ -12,7 +12,7 @@ services:
     
     ports:
     # superserver default port 
-    - "51780:51773"
+    - "51780:1972"
     # webserver/management portal port
     - "52780:52773"
     
