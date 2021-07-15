@@ -5,15 +5,12 @@ InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 
 ## ビルドプロセス
 
-### Build
-* `docker-compose build`
-### Run
-* `docker-compose up -d`
-
+### Build&Run
+* `docker-compose up -d --build`
 
 ## 管理ポータル起動方法
 
-[localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=demosystem)
+[localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS)
 
 ## Webターミナル起動方法
 
@@ -24,7 +21,7 @@ InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 |項目           |値         |
 |--------------|-----------|
 |システムログイン |_system    |
-|パスワード　	    |demosystem |
+|パスワード　	    |SYS |
 
 
 ## サンプル実行方法
