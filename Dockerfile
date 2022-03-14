@@ -13,6 +13,7 @@ ARG COMMIT_ID="dgdemo"
 USER ${ISC_PACKAGE_MGRUSER}
 
 ENV ISC_TEMP_DIR=/intersystems/iris/
+COPY iris.script /tmp/
 COPY Sales $ISC_TEMP_DIR/Sales
 COPY Shop $ISC_TEMP_DIR/Shop
 COPY Sample $ISC_TEMP_DIR/Sample
