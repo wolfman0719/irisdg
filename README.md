@@ -35,6 +35,7 @@ Webターミナルでログイン
 2.　注文作成　
 
 ```USER>d ##class(Sales.Operation).placeOrder(3)
+
 北村　ゆきえ様、いつもご利用ありがとうございます
  
 商品ID              商品名              単価
