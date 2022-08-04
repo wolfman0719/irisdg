@@ -28,7 +28,7 @@ InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 
 1. データ生成
 
-Cacheターミナルでログイン
+Webターミナルでログイン
 
 `USER>do ##class(Sales.Operation).populate(5)`
 
