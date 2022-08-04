@@ -30,11 +30,14 @@ InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 
 Webターミナルでログイン
 
-`USER>do ##class(Sales.Operation).populate(5)`
+```
+USER>do ##class(Sales.Operation).populate(5)
+```
 
 2.　注文作成　
 
-`USER>d ##class(Sales.Operation).placeOrder(3)`
+```
+USER>d ##class(Sales.Operation).placeOrder(3)
 
 北村　ゆきえ様、いつもご利用ありがとうございます
  
@@ -53,10 +56,12 @@ Webターミナルでログイン
 注文したい商品IDを入力して下さい　
  
 USER>
+```
 
 3.　顧客別注文状況表示
 
-`USER>d ##class(Sales.Operation).orderByCustomer(3)`
+```
+USER>d ##class(Sales.Operation).orderByCustomer(3)
  
 北村　ゆきえ様のご注文履歴は、以下の様になっています
  
@@ -75,9 +80,11 @@ USER>
 -------------------------------------------------------------------------------
        1       4    ボディーソープ       4,600      90 %       2         8,280
        2       2    スクラブウォッシュ   9,200      90 %       3        24,840
+```
 
 4.　商品別売り上げ
 
-`USER>d ##class(Sales.Operation).totalByProduct(1)`
+```
+USER>d ##class(Sales.Operation).totalByProduct(1)
 この商品の売り上げ累計は、3360円です
-
+```
