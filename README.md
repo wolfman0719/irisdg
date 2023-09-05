@@ -10,11 +10,11 @@ InterSystems IRIS Data Platform ディベロッパーガイドDocker Build
 
 ## 管理ポータル起動方法
 
-[localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS](http://localhost:52780/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS)
+[localhost:52773/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS](http://localhost:52773/csp/sys/%25CSP.Portal.Home.zen?IRISUsername=_system&IRISPassword=SYS)
 
 ## Webターミナル起動方法
 
-[localhost:52780/terminal/](http://localhost:52780/terminal/)
+[localhost:52780/terminal/](http://localhost:52773/terminal/)
 
 ## クレデンシャル情報
 
