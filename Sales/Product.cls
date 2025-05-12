@@ -9,13 +9,13 @@ Property UnitPrice As %Integer(FORMAT = ",", POPSPEC = "##class(Sales.Product).U
 
 ClassMethod Name() As %String
 {
-	set productlist = $listbuild("シャンプー","リンス","ボディーソープ","スクラブウォッシュ","ヘアジェル")
-	quit $list(productlist,$random($listlength(productlist))+1)
+  set productlist = $listbuild("シャンプー","リンス","ボディーソープ","スクラブウォッシュ","ヘアジェル")
+  quit $list(productlist,$random($listlength(productlist))+1)
 }
 
 ClassMethod UnitPrice() As %Integer
 {
-	quit ($random(100)+1)*100
+  quit ($random(100)+1)*100
 }
 
 Index NameIndex On Name;
