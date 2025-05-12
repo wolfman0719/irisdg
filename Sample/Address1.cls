@@ -16,13 +16,13 @@ Property Zip As %String(MAXLEN = 7, TRUNCATE = 1) [ SqlFieldName = 郵便番号 
 
 Method OnPopulate() As %Status
 {
-	Set id=$R($Get(^Yubin.ZenkokuD)+1)
-	Set yubindata=^Yubin.ZenkokuD(id)
-	Set ..Zip=$List(yubindata,4)
-	Set ..State=$List(yubindata,8)
-	Set ..City=$List(yubindata,9)
-	Set ..Street=$List(yubindata,10)
-	QUIT $$$OK
+  Set id=$R($Get(^Yubin.ZenkokuD)+1)
+  Set yubindata=^Yubin.ZenkokuD(id)
+  Set ..Zip=$List(yubindata,4)
+  Set ..State=$List(yubindata,8)
+  Set ..City=$List(yubindata,9)
+  Set ..Street=$List(yubindata,10)
+  QUIT $$$OK
 }
 
 // directly specify the serialized state of this object
