@@ -15,33 +15,33 @@ Property Discount As %Integer(POPSPEC = "##class(Sales.Customer).Discount()");
 
 ClassMethod Name() As %String
 {
-	set customerlist = $listbuild("太田　明","前島　健作","後藤　雅美","寺島　幸治","北村　ゆきえ")
-	quit $list(customerlist,$random($listlength(customerlist))+1)
+  set customerlist = $listbuild("太田　明","前島　健作","後藤　雅美","寺島　幸治","北村　ゆきえ")
+  quit $list(customerlist,$random($listlength(customerlist))+1)
 }
 
 ClassMethod Address() As %String
 {
-	set address = "東京都新宿区西新宿"
-	set b1 = $random(10)+1
-	set b2 = $random(10)+1
-	set b3 = $random(10)+1
-	set address = address_b1_"-"_b2_"-"_b3
+  set address = "東京都新宿区西新宿"
+  set b1 = $random(10)+1
+  set b2 = $random(10)+1
+  set b3 = $random(10)+1
+  set address = address_b1_"-"_b2_"-"_b3
 	
-	quit address
+  quit address
 }
 
 ClassMethod Telno() As %String
 {
-	set telno = "03-5321"
+  set telno = "03-5321"
 	
-	set tlist = $listbuild(6430,6431,6432,6433,6434,6435)
-	quit telno_"-"_$list(tlist,$random($listlength(tlist))+1)
+  set tlist = $listbuild(6430,6431,6432,6433,6434,6435)
+  quit telno_"-"_$list(tlist,$random($listlength(tlist))+1)
 }
 
 ClassMethod Discount() As %Integer
 {
 	
-	quit (5+$random(5)+1)*10
+  quit (5+$random(5)+1)*10
 }
 
 Index NameIndex On Name;
