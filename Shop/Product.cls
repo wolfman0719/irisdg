@@ -33,31 +33,31 @@ Index NameIdx On Name;
 
 ClassMethod createTestData(dir As %String)
 {
-	Set s=##class(%FileBinaryStream).%New()
-	Do s.LinkToFile(dir_"Image1.gif")
+  Set s=##class(%FileBinaryStream).%New()
+  Do s.LinkToFile(dir_"Image1.gif")
 	
-	Set p=##class(Shop.Product).%New()
-	Set p.Code="PC001"
-	Set p.Name="ThinkPad"
-	Set p.Description="Intelテクノロジを採用。1.2kgのボディにDVDドライブを搭載"
- 	Set p.ListPrice=199800
- 	Do p.Picture.CopyFrom(s)
- 	do p.Picture.SetAttribute("ContentType","image/gif")
-	Do p.%Save()
+  Set p=##class(Shop.Product).%New()
+  Set p.Code="PC001"
+  Set p.Name="ThinkPad"
+  Set p.Description="Intelテクノロジを採用。1.2kgのボディにDVDドライブを搭載"
+  Set p.ListPrice=199800
+  Do p.Picture.CopyFrom(s)
+  do p.Picture.SetAttribute("ContentType","image/gif")
+  Do p.%Save()
 	
-	Set s=##class(%FileBinaryStream).%New()
-	Do s.LinkToFile(dir_"Image2.gif")
+  Set s=##class(%FileBinaryStream).%New()
+  Do s.LinkToFile(dir_"Image2.gif")
 
-	Set p=##class(Shop.Product).%New()
-	Set p.Code="MNT001"
-	Set p.Name="17インチ液晶モニタ"
-	Set p.Description="厚さ1.5cmの超薄型液晶モニタ"
-	Set p.ListPrice=89800
- 	Do p.Picture.CopyFrom(s)
- 	do p.Picture.SetAttribute("ContentType","image/gif")
-	Do p.%Save()
+  Set p=##class(Shop.Product).%New()
+  Set p.Code="MNT001"
+  Set p.Name="17インチ液晶モニタ"
+  Set p.Description="厚さ1.5cmの超薄型液晶モニタ"
+  Set p.ListPrice=89800
+  Do p.Picture.CopyFrom(s)
+  do p.Picture.SetAttribute("ContentType","image/gif")
+  Do p.%Save()
 	
-	Quit
+  Quit
 }
 
 Storage Default
