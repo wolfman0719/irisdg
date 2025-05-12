@@ -43,21 +43,21 @@ Property Age As %Integer [ Calculated, SqlComputeCode = { Set {年令}=##class(S
 /// This class method calculates a current age given a date of birth <var>date</var>.
 ClassMethod CurrentAge(date As %Date = "") As %Integer [ CodeMode = expression ]
 {
-$Select(date="":"",1:(($H-date)\365))
+  $Select(date="":"",1:(($H-date)\365))
 }
 
 /// Prints the property <property>Name</property> to the console.
 Method PrintPerson()
 {
- Write !, "名前: ", ..Name
- Quit
+  Write !, "名前: ", ..Name
+  Quit
 }
 
 /// A simple, sample method: add two numbers (<var>x</var> and <var>y</var>) 
 /// and return the result.
 Method Addition(x As %Integer = 1, y As %Integer = 1) As %Integer
 {
- Quit x + y // comment
+  Quit x + y // comment
 }
 
 /// A simple, sample expression method: returns the value 99.
@@ -70,36 +70,36 @@ Method NinetyNine() As %Integer [ CodeMode = expression ]
 /// within the database.
 ClassMethod PrintPersons()
 {
- New extent,person
+  New extent,person
 
- // use the extent result set to find all person
- Set extent = ##class(%ResultSet).%New("Sample.Person:Extent")
- Do extent.Execute()
+  // use the extent result set to find all person
+  Set extent = ##class(%ResultSet).%New("Sample.Person:Extent")
+  Do extent.Execute()
 
- While (extent.Next()) {
- Set person = ..%OpenId(extent.GetData(1))
- Do person.PrintPerson()
- }
+  While (extent.Next()) {
+    Set person = ..%OpenId(extent.GetData(1))
+    Do person.PrintPerson()
+  }
 
- Quit
+  Quit
 }
 
 /// Prints out data on all persons within the database using SQL to 
 /// iterate over all the person data.
 ClassMethod PrintPersonsSQL()
 {
- New query,person
+  New query,person
 
- // use dynamic SQL result set to find person data
- Set query = ##class(%ResultSet).%New("%DynamicQuery:SQL")
- Do query.Prepare("SELECT ID, 名前 FROM Sample.Person ORDER BY 名前")
- Do query.Execute()
+  // use dynamic SQL result set to find person data
+  Set query = ##class(%ResultSet).%New("%DynamicQuery:SQL")
+  Do query.Prepare("SELECT ID, 名前 FROM Sample.Person ORDER BY 名前")
+  Do query.Execute()
 
- While (query.Next()) {
- Write !,"名前: ", query.Get("名前")
- }
+  While (query.Next()) {
+    Write !,"名前: ", query.Get("名前")
+  }
 
- Quit
+  Quit
 }
 
 /// This is a sample of how to define an SQL stored procedure using a 
@@ -108,9 +108,9 @@ ClassMethod PrintPersonsSQL()
 /// In this case this method returns the concatenation of a string value.
 ClassMethod StoredProcTest(name As %String, ByRef response As %String) As %String [ SqlName = Stored_Procedure_Test, SqlProc ]
 {
- // Set response to the concatenation of name.
- Set response = $Piece(name,",",1)_"  "_$Piece(name,",",2)
- QUIT response
+  // Set response to the concatenation of name.
+  Set response = $Piece(name,",",1)_"  "_$Piece(name,",",2)
+  QUIT response
 }
 
 /// This is a sample of how to define an SQL stored procedure using a 
@@ -122,18 +122,18 @@ ClassMethod StoredProcTest(name As %String, ByRef response As %String) As %Strin
 /// <var>Home.Zip</var> is equal to <var>zip</zip>.
 ClassMethod UpdateProcTest(zip As %String, city As %String, state As %String) As %Integer [ SqlProc ]
 {
- New SQLCODE,%ROWCOUNT,%ROWID,rowcount
+  New SQLCODE,%ROWCOUNT,%ROWID,rowcount
 
- &sql(UPDATE Sample.Person 
- SET 自宅_都市 = :city, 自宅_都道府県 = :state 
- WHERE 自宅_郵便番号 = :zip)
+  &sql(UPDATE Sample.Person 
+  SET 自宅_都市 = :city, 自宅_都道府県 = :state 
+  WHERE 自宅_郵便番号 = :zip)
 
- // Return context information to client via %SQLProcContext object
- If ($g(%sqlcontext)'=$$$NULLOREF) { 
- Set %sqlcontext.SQLCode = SQLCODE
- Set %sqlcontext.RowCount = %ROWCOUNT
- }
- QUIT 1
+  // Return context information to client via %SQLProcContext object
+  If ($g(%sqlcontext)'=$$$NULLOREF) { 
+    Set %sqlcontext.SQLCode = SQLCODE
+    Set %sqlcontext.RowCount = %ROWCOUNT
+  }
+  QUIT 1
 }
 
 /// A sample class query that defines a result set that returns Person data 
