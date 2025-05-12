@@ -43,32 +43,32 @@ Index CustomerIndex On Customer;
 
 ClassMethod create(cust As Shop.Customer, shipto As Shop.Address) As Shop.POrder
 {
-	Set po = ##class(Shop.POrder).%New()
-	Set po.Customer = cust
-	Set po.ShipTo = shipto
-	Set po.IsProcessing = 1
-	Quit po
+  Set po = ##class(Shop.POrder).%New()
+  Set po.Customer = cust
+  Set po.ShipTo = shipto
+  Set po.IsProcessing = 1
+  Quit po
 }
 
 // 明細追加
 
 Method addItem(p As Shop.Product, amt As %Integer)
 {
-	Set item = ##class(Shop.OrderItem).%New()
-	Set item.Product = p
-	Set item.UnitPrice = ..Customer.determinePrice(p.ListPrice)
-	Set item.Amount = amt
-	Do ..Items.Insert(item)
+  Set item = ##class(Shop.OrderItem).%New()
+  Set item.Product = p
+  Set item.UnitPrice = ..Customer.determinePrice(p.ListPrice)
+  Set item.Amount = amt
+  Do ..Items.Insert(item)
 }
 
 // オーダ確定
 
 Method place() As %Status
 {
-	Set ..PurchaseDt = +$horolog
-	Set ..OrderNumber = "O"_$Justify(..getSeqNum(), 9)
-	Set ..IsProcessing = 0
-	Quit ..%Save()
+  Set ..PurchaseDt = +$horolog
+  Set ..OrderNumber = "O"_$Justify(..getSeqNum(), 9)
+  Set ..IsProcessing = 0
+  Quit ..%Save()
 }
 
 // 連続番号を取得
@@ -76,18 +76,18 @@ Method place() As %Status
 /// [Previously private]
 ClassMethod getSeqNum() As %Integer
 {
-	Quit $Increment(^Shop.Order)
+  Quit $Increment(^Shop.Order)
 }
 
 // 合計価格の計算ロジック
 
 Method TotalPriceGet() As %Integer
 {
-	Set total = 0
-	For i=1:1:..Items.Count() {
-		Set total =total + ..Items.GetAt(i).Subtotal	
-	}
-	Quit total
+  Set total = 0
+  For i=1:1:..Items.Count() {
+    Set total =total + ..Items.GetAt(i).Subtotal	
+  }
+  Quit total
 }
 
 Storage Default
