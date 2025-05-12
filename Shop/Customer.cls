@@ -24,78 +24,78 @@ Index NameIdx On Name;
 /// パスワードのチェック
 ClassMethod CheckPasswd(user As %String, passwd As %String) As Shop.Customer
 {
-	quit:$get(user)="" ""
+  quit:$get(user)="" ""
 
-	set res=##class(%ResultSet).%New("%DynamicQuery:SQL")
-	do res.Prepare("SELECT ID FROM Shop.Customer Where UserName = ? AND Passwd = ?")
-	do res.Execute(user,passwd)
+  set res=##class(%ResultSet).%New("%DynamicQuery:SQL")
+  do res.Prepare("SELECT ID FROM Shop.Customer Where UserName = ? AND Passwd = ?")
+  do res.Execute(user,passwd)
 	
-	quit:'res.Next() ""
+  quit:'res.Next() ""
 	
-	set cid=res.GetData(1)
+  set cid=res.GetData(1)
 	
-	quit ..%OpenId(cid)
+  quit ..%OpenId(cid)
 }
 
 Method determinePrice(listprice As %Integer) As %Integer
 {
-	Quit 0
+  Quit 0
 }
 
 // これまでの購入金額を計算
 
 Method TotalOrderAmountGet() As %Integer
 {
-	Set total = 0
-	For i=1:1:..POrders.Count() {
-		Set o = ..POrders.GetAt(i)
+  Set total = 0
+  For i=1:1:..POrders.Count() {
+    Set o = ..POrders.GetAt(i)
 		
-		// 処理中のオーダを除いて計算する
-		If o.IsProcessing = 0 { Set total = total + o.TotalPrice }
-	}
-	Quit total
+    // 処理中のオーダを除いて計算する
+    If o.IsProcessing = 0 { Set total = total + o.TotalPrice }
+  }
+  Quit total
 }
 
 ClassMethod createTestData()
 {
-	d ##class(Shop.Customer).%KillExtent()
+  do ##class(Shop.Customer).%KillExtent()
 
-	// 個人顧客
-	Set c=##class(Shop.IndvCustomer).%New()
-	Set c.Name="日本 太郎"
-	Set c.Location.Street="丸の内"
-	Set c.Location.City="東京"
-	Set c.Location.PostalCode="100-0001"
-	Set c.DOB=$zdh("2/4/2003")
-	Set c.UserName="taro"
-	Set c.Passwd="taro"
-	Do c.%Save()
+  // 個人顧客
+  Set c=##class(Shop.IndvCustomer).%New()
+  Set c.Name="日本 太郎"
+  Set c.Location.Street="丸の内"
+  Set c.Location.City="東京"
+  Set c.Location.PostalCode="100-0001"
+  Set c.DOB=$zdh("2/4/2003")
+  Set c.UserName="taro"
+  Set c.Passwd="taro"
+  Do c.%Save()
 
-	// 個人顧客
-	Set c=##class(Shop.IndvCustomer).%New()
-	Set c.Name="日本 花子"
-	Set c.Location.Street="赤坂"
-	Set c.Location.City="東京"
-	Set c.Location.PostalCode="100-0001"
-	Set c.DOB=$zdh("2/4/2001")
-	Set c.UserName="hanako"
-	Set c.Passwd="hanako"
-	Do c.%Save()
+  // 個人顧客
+  Set c=##class(Shop.IndvCustomer).%New()
+  Set c.Name="日本 花子"
+  Set c.Location.Street="赤坂"
+  Set c.Location.City="東京"
+  Set c.Location.PostalCode="100-0001"
+  Set c.DOB=$zdh("2/4/2001")
+  Set c.UserName="hanako"
+  Set c.Passwd="hanako"
+  Do c.%Save()
 
-	// 法人顧客
-	Set c=##class(Shop.CorporateCustomer).%New()
-	Set c.Name="インターシステムズジャパン"
-	Set c.Location.Street="西新宿"
-	Set c.Location.City="東京"
-	Set c.Location.PostalCode="160-0023"
-	Set c.RepName="速井 一郎"
-	Set c.UserName="intersystems"
-	Set c.Passwd="intersystems"
-	Do c.%Save()
+  // 法人顧客
+  Set c=##class(Shop.CorporateCustomer).%New()
+  Set c.Name="インターシステムズジャパン"
+  Set c.Location.Street="西新宿"
+  Set c.Location.City="東京"
+  Set c.Location.PostalCode="160-0023"
+  Set c.RepName="速井 一郎"
+  Set c.UserName="intersystems"
+  Set c.Passwd="intersystems"
+  Do c.%Save()
 	
-	d ##class(Shop.POrder).%KillExtent()
-	d ##class(Shop.OrderItem).%KillExtent()
-	k ^Shop.Order
+  do ##class(Shop.POrder).%KillExtent()
+  do ##class(Shop.OrderItem).%KillExtent()
+  kill ^Shop.Order
 }
 
 Query ByName(Param1 As %String) As %SQLQuery(CONTAINID = 1)
