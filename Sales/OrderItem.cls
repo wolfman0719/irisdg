@@ -11,7 +11,7 @@ Property SubTotal As %Integer(FORMAT = ",") [ Calculated ];
 
 Method SubTotalGet() As %Integer
 {
-	Quit $normalize((..Product.UnitPrice * ..Amount * ..TheOrder.Customer.Discount / 100),0)
+  Quit $normalize((..Product.UnitPrice * ..Amount * ..TheOrder.Customer.Discount / 100),0)
 }
 
 Storage Default
