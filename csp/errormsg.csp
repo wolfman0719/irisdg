@@ -39,7 +39,7 @@
 </TABLE>
 
 <script language=CACHE runat=server>
-	Set %session.EndSession=1
+  Set %session.EndSession=1
 </script>
 
 </BODY>
